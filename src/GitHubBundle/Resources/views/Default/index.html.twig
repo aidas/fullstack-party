@@ -1,0 +1,24 @@
+{% extends '@GitHub/base.html.twig' %}
+
+{% block body %}
+    {% if is_logged_in is empty %}
+        <a href="https://github.com/login/oauth/authorize?scope=user:email&client_id={{ git_app_config.client_id }}">
+            Log in with GitHub
+        </a>
+    {% else %}
+        <p>
+            You're already logged in!
+            Choose a repo to query:
+        </p>
+        <ul>
+            {% for repo in repos %}
+            <li>
+                <a href="{{ path('github_issue_list', {'repo': repo }) }}">
+                    {{ repo }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+
+    {% endif %}
+{% endblock %}

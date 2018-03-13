@@ -1,0 +1,9 @@
+{% extends '@GitHub/base.html.twig' %}
+
+{% block body %}
+    <a href="{{ path('github_issue_list', {'repo': repo }) }}">
+        Back to issues of {{ repo }}
+    </a>
+
+    {{ dump(issue) }}
+{% endblock %}

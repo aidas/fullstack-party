@@ -7,6 +7,9 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    github_app_config:
+        client_id: cb4538809af42c5f4403
+        client_secret: 1e4e0536b6855b298ba72711c0458215b5c85625
 
 framework:
     #esi: ~
@@ -35,6 +38,8 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    globals:
+        git_app_config: '%github_app_config%'
 
 # Doctrine Configuration
 doctrine:

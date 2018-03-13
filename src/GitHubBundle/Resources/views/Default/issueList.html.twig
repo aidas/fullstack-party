@@ -1,0 +1,35 @@
+{% extends '@GitHub/base.html.twig' %}
+
+{% block body %}
+    <div>
+        {% if (totals['open'] > 0) %}
+        <a href="{{ path('github_issue_list', {'repo': repo, 'state': 'open' }) }}">
+            {% endif %}
+            Open {{ totals['open'] }} |
+            {% if (totals['open'] > 0) %}</a>{% endif %}
+
+        {% if (totals['closed'] > 0) %}
+        <a href="{{ path('github_issue_list', {'repo': repo, 'state': 'closed' }) }}">
+            {% endif %}
+            Closed {{ totals['closed'] }}
+            {% if (totals['closed'] > 0) %}</a>{% endif %}
+    </div>
+    {% if issues is not empty %}
+        <ul>
+            {% for issue in issues %}
+                <li>
+                    <a href="{{ path('github_issue_page', {'repo': repo, 'issueNumber': issue.number }) }}">
+                        {{ issue.title }}
+                    </a>
+
+                    {{ dump(issue) }}
+                </li>
+            {% endfor %}
+
+            {{ dump(paginationData) }}
+
+        </ul>
+    {% else %}
+        <p>No issues have been found in {{ repo }} repo</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,31 @@
+parameters:
+    guzzle_config:
+        base_uri: https://api.github.com
+        exceptions: false
+        headers:
+            Accept: application/json
+
+services:
+    guzzle_client:
+        class: GuzzleHttp\Client
+        arguments: ['%guzzle_config%']
+
+    github.client:
+        class: GitHubBundle\Services\GithubClient
+        arguments: ['@guzzle_client', '%github_app_config%']
+
+    github.base_controller:
+        class: GitHubBundle\Controller\BaseController
+        arguments: ['@github.client', '@jms_serializer', '@twig', '@router']
+
+    github.homepage_controller:
+        class: GitHubBundle\Controller\HomepageController
+        parent: github.base_controller
+
+    github.auth_controller:
+        class: GitHubBundle\Controller\AuthController
+        parent: github.base_controller
+
+    github.issue_controller:
+        class: GitHubBundle\Controller\IssueController
+        parent: github.base_controller

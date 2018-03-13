@@ -1,0 +1,30 @@
+github_homepage:
+    path:     /
+    defaults: { _controller: github.homepage_controller:indexAction }
+    methods: [GET]
+
+github_inbound:
+    path:     /inbound
+    defaults: { _controller: github.auth_controller:inboundAction }
+    methods: [GET]
+
+github_logout:
+    path:    /logout
+    defaults: { _controller: github.auth_controller:logoutAction }
+    methods: [GET]
+
+github_issue_list:
+    path:     /{repo}/issues/{state}/{page}
+    defaults: { _controller: github.issue_controller:issueList, state: 'all', page: 1 }
+    requirements:
+        repo: .+
+        state: all|closed|open
+    methods: [GET]
+
+github_issue_page:
+    path:     /{repo}/issue/{issueNumber}
+    defaults: { _controller: github.issue_controller:issueAction }
+    requirements:
+        repo: .+
+        issueNumber: \d+
+    methods: [GET]
